@@ -1,3 +1,3 @@
 #test
 def hello ():
-    print(3)
+    print(5)
