@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:new_password@localhost:330
 db.init_app(app)
 # db = SQLAlchemy(app)
 
+
 #test
 @app.route('/khalil', methods=['GET'])
 def hello_worldd():
@@ -18,3 +19,8 @@ def hello_worldd():
 @app.route('/create_customer', methods=['POST'])
 def create_customer():
     return customers.create_customer()
+
+#delete a costumer
+@app.route('/delete_customer/<Username>', methods=['DELETE'])
+def delete_customer(Username):
+    return customers.delete_customer(Username)

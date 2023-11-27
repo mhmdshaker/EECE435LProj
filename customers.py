@@ -30,3 +30,10 @@ def create_customer():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+
+#delete a customer from the database:
+def delete_customer(Username):
+    customer = Customer.query.filter_by(Username=Username).first_or_404()
+    db.session.delete(customer)
+    db.session.commit()
+    return jsonify({"message": "Customer deleted successfully"}), 200
