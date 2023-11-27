@@ -46,7 +46,7 @@ def update_customer_info():
     if 'Username' not in data:
         return jsonify({"error": "Username is required in the request"}), 400
 
-    to_be_updated = Customer.query.filter_by(Username-data['Username']).first()
+    to_be_updated = Customer.query.filter_by(Username=data['Username']).first()
 
     # if not found
     if to_be_updated is None:
