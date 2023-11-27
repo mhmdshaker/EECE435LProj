@@ -26,7 +26,13 @@ def create_customer():
 def delete_customer():
     return customers.delete_customer()
 
+#update customer
+@app.route('/update_customer_info', methods=['GET', 'POST'])
+def update_customer_info():
+    return customers.update_customer_info()
+
 #add good to DB:
 @app.route('/add_good', methods = ['POST'])
 def add_good():
     return inventory.add_good()
+
