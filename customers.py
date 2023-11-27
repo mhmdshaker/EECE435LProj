@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-# from app import Customer
-# from app import db
 from models import Customer, db
 
 def hello_world():
