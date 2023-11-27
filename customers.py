@@ -29,8 +29,11 @@ def create_customer():
 #delete a customer from the database:
 def delete_customer():
     data = request.get_json()
-    to_be_deleted = Customer.query.filter_by(Username=data['Username']).first()
+    # Check if 'Username' is provided in the JSON data
+    if 'Username' not in data:
+        return jsonify({"error": "Username is required in the request"}), 400
     
+    to_be_deleted = Customer.query.filter_by(Username=data['Username']).first()
     #if not found:
     if to_be_deleted is None:
         return jsonify({"error": "Customer not found"}), 404
@@ -39,6 +42,7 @@ def delete_customer():
     db.session.commit()
     return jsonify({"message": "Customer deleted successfully"}), 200
 
+#update customer info:
 def update_customer_info():
     data = request.get_json()
 
