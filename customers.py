@@ -7,6 +7,9 @@ from models import Customer, db
 def create_customer():
     data = request.get_json()
     try:
+        if "wallet" not in data:
+            data['wallet'] = 0.00
+            
         new_customer = Customer(
             Fullname=data['Fullname'],
             Username=data['Username'],
@@ -14,7 +17,8 @@ def create_customer():
             Age=data['Age'],
             Address=data['Address'],
             Gender=data['Gender'],
-            MaritalStatus=data['MaritalStatus']
+            MaritalStatus=data['MaritalStatus'],
+            wallet = data['wallet']
         )
 
         db.session.add(new_customer)
