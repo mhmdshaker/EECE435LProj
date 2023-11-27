@@ -38,3 +38,35 @@ def delete_customer():
     db.session.delete(to_be_deleted)
     db.session.commit()
     return jsonify({"message": "Customer deleted successfully"}), 200
+
+def update_customer_info():
+    data = request.get_json()
+
+    # Check if 'Username' is provided in the JSON data
+    if 'Username' not in data:
+        return jsonify({"error": "Username is required in the request"}), 400
+
+    to_be_updated = Customer.query.filter_by(Username-data['Username']).first()
+
+    # if not found
+    if to_be_updated is None:
+        return jsonify({"error": "Customer not found"}), 404
+
+    # Update customer information based on the provided data
+    if 'Fullname' in data:
+        to_be_updated.Fullname = data['Fullname']
+    if 'Username' in data:
+        to_be_updated.Username = data['Username']
+    if 'Password' in data:
+        to_be_updated.Password = data['Password']
+    if 'Age' in data:
+        to_be_updated.Age = data['Age']
+    if 'Address' in data:
+        to_be_updated.Address = data['Address']
+    if 'Gender' in data:
+        to_be_updated.Gender = data['Gender']
+    if 'MaritalStatus' in data:
+        to_be_updated.MaritalStatus = data['MaritalStatus']
+
+    db.session.commit()
+    return jsonify({"message: Customer information updated successfully"}), 200
