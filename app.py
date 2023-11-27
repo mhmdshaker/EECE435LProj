@@ -25,5 +25,3 @@ def create_customer():
 def delete_customer():
     return customers.delete_customer()
 
-def hello():
-    print('hello')
