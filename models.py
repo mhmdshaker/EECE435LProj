@@ -17,7 +17,7 @@ class Customer(db.Model):
 class Goods(db.Model):
     Name = db.Column(db.String(255), nullable = False, primary_key = True)
     Category = db.Column(db.Enum('food', 'clothes', 'accessories', 'electronics'))
-    Price_per_item = db.Column(db.Decimal, nullable = False)
+    Price_per_item = db.Column(db.models.DecimalField(("10, 2"), max_digits=5, decimal_places=2), nullable = False)
     Description = db.Column(db.String(225))
     Count_of_available_items = db.Column(db.Integer, nullable = False)
     

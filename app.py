@@ -1,6 +1,7 @@
 from flask import Flask
 from models import db, Customer
 import customers
+import inventory
 
 app = Flask(__name__)
 
