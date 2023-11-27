@@ -22,4 +22,7 @@ def add_good():
         if 'duplicate entry' in str(e).lower():
             return jsonify({"error": "The item already exists, please update its fields instead"}), 400
         return jsonify({"error": str(e)}), 400
+    
+# #Deducing goods: removing an item from stock :
+# def remove_stock
         
