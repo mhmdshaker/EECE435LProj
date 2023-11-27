@@ -99,3 +99,34 @@ def get_all_customers():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# Get a customer by username
+def get_customer_by_username():
+    data = request.get_json()
+
+    # Check if 'Username' is provided in the JSON data
+    if 'Username' not in data:
+        return jsonify({"error": "Username is required in the request"}), 400
+
+    customer = Customer.query.filter_by(Username=data['Username']).first()
+
+    # if not found
+    if customer is None:
+        return jsonify({"error": "Customer not found"}), 404
+
+
+    try:
+        customer_data = {
+            'Fullname': customer.Fullname,
+            'Username': customer.Username,
+            'Password': customer.Password,
+            'Age': customer.Age,
+            'Address': customer.Address,
+            'Gender': customer.Gender,
+            'MaritalStatus': customer.MaritalStatus
+        }
+
+        return jsonify({"customer": customer_data}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

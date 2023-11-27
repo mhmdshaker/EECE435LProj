@@ -47,3 +47,7 @@ def remove_stock():
 @app.route('/update_good_info', methods = ['PATCH'])
 def update_good_info():
     return inventory.update_good_info()
+
+@app.route('/get_customer_by_username', methods=['GET'])
+def get_customer_by_username():
+    return customers.get_customer_by_username()
