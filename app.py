@@ -21,6 +21,6 @@ def create_customer():
     return customers.create_customer()
 
 #delete a costumer
-@app.route('/delete_customer/<Username>', methods=['DELETE'])
-def delete_customer(Username):
-    return customers.delete_customer(Username)
+@app.route('/delete_customer', methods=['POST'])
+def delete_customer():
+    return customers.delete_customer()

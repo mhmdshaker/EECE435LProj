@@ -32,8 +32,14 @@ def create_customer():
 
 
 #delete a customer from the database:
-def delete_customer(Username):
-    customer = Customer.query.filter_by(Username=Username).first_or_404()
-    db.session.delete(customer)
+def delete_customer():
+    data = request.get_json()
+    to_be_deleted = Customer.query.filter_by(Username=data['Username']).first()
+    
+    #if not found:
+    if to_be_deleted is None:
+        return jsonify({"error": "Customer not found"}), 404
+    
+    db.session.delete(to_be_deleted)
     db.session.commit()
     return jsonify({"message": "Customer deleted successfully"}), 200
