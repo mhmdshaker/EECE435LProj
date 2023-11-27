@@ -13,6 +13,7 @@ class Customer(db.Model):
     Address = db.Column(db.String(255))
     Gender = db.Column(db.Enum('Male', 'Female'))
     MaritalStatus = db.Column(db.Enum('Single', 'Married', 'Divorced', 'Widowed'))
+    wallet = db.Column(db.Numeric(10, 2), nullable=False, default=0.00)
 
 #Define the Goods model
 class Goods(db.Model):
