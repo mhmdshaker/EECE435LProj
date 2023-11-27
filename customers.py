@@ -73,4 +73,4 @@ def update_customer_info():
         to_be_updated.MaritalStatus = data['MaritalStatus']
 
     db.session.commit()
-    return jsonify({"message: Customer information updated successfully"}), 200
+    return jsonify({"message": "Customer information updated successfully"}), 200

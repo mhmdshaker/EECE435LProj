@@ -27,7 +27,7 @@ def delete_customer():
     return customers.delete_customer()
 
 #update customer
-@app.route('/update_customer_info', methods=['GET', 'POST'])
+@app.route('/update_customer_info', methods=['PATCH'])
 def update_customer_info():
     return customers.update_customer_info()
 
