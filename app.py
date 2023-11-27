@@ -29,4 +29,4 @@ def delete_customer():
 #add good to DB:
 @app.route('/add_good', methods = ['POST'])
 def add_good():
-    return customers.add_good()
+    return inventory.add_good()

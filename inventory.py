@@ -16,7 +16,7 @@ def add_good():
         )
         
         db.session.add(new_good)
-        db.session.commit
+        db.session.commit()
         return jsonify({"message": "Good added successfully"})
     except Exception as e:
         return jsonify({"error": str(e)}), 400
