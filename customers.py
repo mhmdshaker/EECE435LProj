@@ -74,3 +74,28 @@ def update_customer_info():
 
     db.session.commit()
     return jsonify({"message": "Customer information updated successfully"}), 200
+
+
+# Get all customers from the database
+def get_all_customers():
+    try:
+        customers = Customer.query.all()
+
+        # Convert the list of customers to a list of dictionaries
+        customers_list = [
+            {
+                'Fullname': customer.Fullname,
+                'Username': customer.Username,
+                'Password': customer.Password,
+                'Age': customer.Age,
+                'Address': customer.Address,
+                'Gender': customer.Gender,
+                'MaritalStatus': customer.MaritalStatus
+            }
+            for customer in customers
+        ]
+
+        return jsonify({"customers": customers_list}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

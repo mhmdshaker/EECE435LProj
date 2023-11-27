@@ -36,3 +36,6 @@ def update_customer_info():
 def add_good():
     return inventory.add_good()
 
+@app.route('/customers', methods=['GET'])
+def get_all_customers():
+    return get_all_customers()
