@@ -3,9 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 import pymysql
 from models import Customer, db
 
-def hello_world():
-    return 'Hello, World!'
-
 #add customer to DB:
 def create_customer():
     data = request.get_json()
