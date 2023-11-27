@@ -25,3 +25,7 @@ def create_customer():
 def delete_customer():
     return customers.delete_customer()
 
+#add good to DB:
+@app.route('/add_good', methods = ['POST'])
+def add_good():
+    return customers.add_good()
