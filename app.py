@@ -43,3 +43,7 @@ def get_all_customers():
 @app.route('/remove_stock', methods = ['PATCH'])
 def remove_stock():
     return inventory.remove_stock()
+
+@app.route('/update_good_info', methods = ['PATCH'])
+def update_good_info():
+    return inventory.update_good_info()
