@@ -39,3 +39,7 @@ def add_good():
 @app.route('/customers', methods=['GET'])
 def get_all_customers():
     return customers.get_all_customers()
+
+@app.route('/remove_stock', methods = ['PATCH'])
+def remove_stock():
+    return inventory.remove_stock()

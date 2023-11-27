@@ -23,6 +23,18 @@ def add_good():
             return jsonify({"error": "The item already exists, please update its fields instead"}), 400
         return jsonify({"error": str(e)}), 400
     
-# #Deducing goods: removing an item from stock :
-# def remove_stock
+#Deducing goods: removing an item from stock :
+def remove_stock():
+    data = request.get_json()
+    # Check if 'Name' is provided in the JSON data
+    if 'Name' not in data:
+        return jsonify({"error": "Name is required in the request"}), 400
+    if 'Amount_to_be_removed' not in data:
+        return jsonify({"error": "Amount to be deducted is required as an input"}), 400
+    
+    to_be_updated = Goods.query.filter_by(Name=data['Name']).first()
+    to_be_updated.Count_of_available_items = to_be_updated.Count_of_available_items - data['Amount_to_be_removed']
+
+    db.session.commit()
+    return jsonify({"message": "Amount count changed successfuly"}), 200
         
