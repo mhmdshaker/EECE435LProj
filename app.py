@@ -24,3 +24,6 @@ def create_customer():
 @app.route('/delete_customer', methods=['POST'])
 def delete_customer():
     return customers.delete_customer()
+
+def hello():
+    print('hello')
