@@ -75,6 +75,8 @@ def update_customer_info():
         to_be_updated.Gender = data['Gender']
     if 'MaritalStatus' in data:
         to_be_updated.MaritalStatus = data['MaritalStatus']
+    if 'wallet' in data:
+        to_be_updated.wallet = data['wallet']
 
     db.session.commit()
     return jsonify({"message": "Customer information updated successfully"}), 200
@@ -94,7 +96,8 @@ def get_all_customers():
                 'Age': customer.Age,
                 'Address': customer.Address,
                 'Gender': customer.Gender,
-                'MaritalStatus': customer.MaritalStatus
+                'MaritalStatus': customer.MaritalStatus,
+                'wallet' : Customer.wallet
             }
             for customer in customers
         ]
@@ -127,7 +130,8 @@ def get_customer_by_username():
             'Age': customer.Age,
             'Address': customer.Address,
             'Gender': customer.Gender,
-            'MaritalStatus': customer.MaritalStatus
+            'MaritalStatus': customer.MaritalStatus,
+            'wallet': customer.wallet
         }
 
         return jsonify({"customer": customer_data}), 200
