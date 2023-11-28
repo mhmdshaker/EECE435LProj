@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 from models import Customer, db
+from decimal import Decimal
+
 
 #add customer to DB:
 def create_customer():
@@ -149,7 +151,10 @@ def charge_wallet():
         return jsonify({"error": "Amount to charge is required as an input"}), 400
 
     customer = Customer.query.filter_by(Username=data['Username']).first()
-    customer.wallet += data['Amount_to_charge']
+    if type(data['Amount_to_charge'])!=int:
+        if type(data['Amount_to_charge'])!=float:
+            return jsonify({"error": "Invalid type for amount to charge! You shopuld input a decimal or an integer"}), 400
+    customer.wallet += Decimal(data['Amount_to_charge'])
     
     db.session.commit()
     return jsonify({"message": "Customer wallet charged successfully"}), 200

@@ -4,6 +4,7 @@ import customers
 import inventory
 import sales
 
+
 app = Flask(__name__)
 
 # Configure your MySQL database connection here
