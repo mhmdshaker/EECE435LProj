@@ -61,3 +61,7 @@ def charge_wallet():
 @app.route('/display_available_goods', methods = ['GET'])
 def display_available_goods():
     return sales.display_available_goods()
+
+@app.route('/good_details', methods = ['GET'])
+def good_details():
+    return sales.good_details()
