@@ -161,3 +161,23 @@ def charge_wallet():
     
     db.session.commit()
     return jsonify({"message": "Customer wallet charged successfully"}), 200
+
+def deduct_money():
+    data = request.get_json()
+
+    if 'Username' not in data:
+        return jsonify({"error: Username is required in the request"}), 400
+    if "Amount_to_deduct" not in data:
+        return jsonify({"error": "Amount to deduct is required as an input"}), 400
+    # Cannot charge negative amount
+    if data['Amount_to_deduct'] < 0:
+        return jsonify({"error": "Amount to deduct should be non-negative"}), 400
+    
+    customer = Customer.query.filter_by(Username=data['Username']).first()
+    if type(data['Amount_to_deduct'])!=int:
+        if type(data['Amount_to_deduct'])!=float:
+            return jsonify({"error": "Invalid type for amount to deduct! You shopuld input a decimal or an integer"}), 400
+    customer.wallet -= Decimal(data['Amount_to_deduct'])
+    
+    db.session.commit()
+    return jsonify({"message": "Deducted from customer wallet successfully"}), 200
