@@ -149,6 +149,9 @@ def charge_wallet():
         return jsonify({"error": "Username is required in the request"}), 400
     if 'Amount_to_charge' not in data:
         return jsonify({"error": "Amount to charge is required as an input"}), 400
+    # Cannot charge negative amount
+    if data['Amount_to_charge'] < 0:
+        return jsonify({"error": "Amount to charge should be non-negative"}), 400
 
     customer = Customer.query.filter_by(Username=data['Username']).first()
     if type(data['Amount_to_charge'])!=int:
