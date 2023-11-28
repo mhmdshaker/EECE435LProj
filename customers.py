@@ -177,6 +177,9 @@ def deduct_money():
     if type(data['Amount_to_deduct'])!=int:
         if type(data['Amount_to_deduct'])!=float:
             return jsonify({"error": "Invalid type for amount to deduct! You shopuld input a decimal or an integer"}), 400
+    if(data['Amount_to_deduct'] > customer.wallet):
+        return jsonify({"error: Deduction failed. Wallet does not contain this amount!"})
+
     customer.wallet -= Decimal(data['Amount_to_deduct'])
     
     db.session.commit()
