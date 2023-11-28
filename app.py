@@ -51,3 +51,7 @@ def update_good_info():
 @app.route('/get_customer_by_username', methods=['GET'])
 def get_customer_by_username():
     return customers.get_customer_by_username()
+
+@app.route('/charge_wallet', methods=['PATCH'])
+def charge_wallet():
+    return customers.charge_wallet()
