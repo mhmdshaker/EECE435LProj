@@ -56,3 +56,7 @@ def get_customer_by_username():
 @app.route('/charge_wallet', methods=['PATCH'])
 def charge_wallet():
     return customers.charge_wallet()
+
+@app.route('/display_available_goods', methods = ['GET'])
+def display_available_goods():
+    return sales.display_available_goods()
