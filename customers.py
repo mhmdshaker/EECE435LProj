@@ -148,7 +148,7 @@ def charge_wallet():
     if 'Amount_to_charge' not in data:
         return jsonify({"error": "Amount to charge is required as an input"}), 400
 
-    customer = Goods.query.filter_by(Name=data['Username']).first()
+    customer = Customer.query.filter_by(Name=data['Username']).first()
     if 'wallet' in data:
         customer.wallet += data['Amount_to_charge']
     
