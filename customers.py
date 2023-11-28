@@ -138,3 +138,19 @@ def get_customer_by_username():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+def charge_wallet():
+    data = request.get_json()
+
+    if 'Username' not in data:
+        return jsonify({"error": "Username is required in the request"}), 400
+    if 'Amount_to_charge' not in data:
+        return jsonify({"error": "Amount to charge is required as an input"}), 400
+
+    customer = Goods.query.filter_by(Name=data['Username']).first()
+    if 'wallet' in data:
+        customer.wallet += data['Amount_to_charge']
+    
+    db.session.commit()
+    return jsonify({"message": "Customer wallet charged successfully"}), 200
