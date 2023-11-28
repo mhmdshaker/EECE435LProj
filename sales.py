@@ -48,3 +48,33 @@ def good_details():
         return jsonify({"error": str(e)}), 500
 
 
+#to make a sale from a customer to a good:
+def make_sale():
+    data = request.get_json()
+    #i should get the Username of the customer and the Name of the good
+    if 'Name' not in data:
+        return jsonify({"error": "Name of good is required in the request"}), 400
+    good = Goods.query.filter_by(Name=data['Name']).first()
+    
+    if 'Username' not in data:
+        return jsonify({"error": "Customer name is required in the request"}), 400
+    customer = Customer.query.filter_by(Username=data['Username']).first()
+    
+    # if not found
+    if good is None:
+        return jsonify({"error": "Good name is not found"}), 404
+    if customer is None:
+        return jsonify({"error": "Customer name is not found"}), 404
+    
+    #check if the user has enough money:
+    if customer.wallet < good.Price_per_item :
+        return jsonify({"error": "No enough amount to buy the good"}), 404
+    
+    #check if the amount of the good is greater than 0:
+    if good.Count_of_available_items == 0:
+        return jsonify({"error": "No more amount of this good is available. Out of Stock!"}), 404
+    
+    good.Count_of_available_items -= 1
+    customer.wallet -= good.Price_per_item
+    
+    db.session.commit()
