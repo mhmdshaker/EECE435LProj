@@ -78,3 +78,5 @@ def make_sale():
     customer.wallet -= good.Price_per_item
     
     db.session.commit()
+    
+    return jsonify({"message": "The customer bought the good successfuly"}), 200

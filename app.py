@@ -69,3 +69,7 @@ def good_details():
 @app.route('/deduct_money', methods = ['PATCH'])
 def deduct_money():
     return customers.deduct_money()
+
+@app.route('/make_sale', methods = ['PATCH'])
+def make_sale():
+    return sales.make_sale()
