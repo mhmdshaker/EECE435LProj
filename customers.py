@@ -9,7 +9,7 @@ def create_customer():
     try:
         if "wallet" not in data:
             data['wallet'] = 0.00
-            
+
         new_customer = Customer(
             Fullname=data['Fullname'],
             Username=data['Username'],
