@@ -2,7 +2,9 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 from models import Customer, Goods, db, Payment_History
-# Payment_History
+
+
+
 
 #Display available goods:
 def display_available_goods():
@@ -20,6 +22,9 @@ def display_available_goods():
     ]
 
     return jsonify({"goods": goods_list}), 200
+
+
+
 
 #Get goods details: This API should return full information related to a specific good:
 def good_details():
@@ -49,76 +54,9 @@ def good_details():
         return jsonify({"error": str(e)}), 500
 
 
-# #to make a sale from a customer to a good:
-# def make_sale():
-#     data = request.get_json()
-
-#     if 'Name' not in data:
-#         return jsonify({"error": "Name of good is required in the request"}), 400
-#     if 'Username' not in data:
-#         return jsonify({"error": "Customer username is required in the request"}), 400
-
-#     good = Goods.query.filter_by(Name=data['Name']).first()
-#     customer = Customer.query.filter_by(Username=data['Username']).first()
-
-#     if good is None:
-#         return jsonify({"error": "Good name is not found"}), 404
-#     if customer is None:
-#         return jsonify({"error": "Customer name is not found"}), 404
-
-#     if customer.wallet < good.Price_per_item:
-#         return jsonify({"error": "Not enough funds to buy the good"}), 400
-#     if good.Count_of_available_items == 0:
-#         return jsonify({"error": "Out of stock"}), 400
-
-#     # Update inventory and customer's wallet
-#     good.Count_of_available_items -= 1
-#     customer.wallet -= good.Price_per_item
-
-#     # Create a new payment history entry or update existing one
-#     # This part depends on your application's logic
-#     # Assuming every sale creates a new entry
-#     new_payment_history = Payment_History(customer_username=customer.Username)
-#     db.session.add(new_payment_history)
-#     db.session.flush()  # Flush to get the new_payment_history id if needed
-
-#     # Link the sold good with the payment history
-#     good.payment_history_username = customer.Username
-
-#     # Commit the transaction
-#     db.session.commit()
-
-#     return jsonify({"message": "Sale completed successfully"}), 200
 
 
-# #to retrieve payment_history:
-# def get_payment_history():
-#     data = request.get_json()
-#     if 'customer_username' not in data:
-#         return jsonify({"error": "Customer username is required"}), 400
-    
-#     if 'good_name' not in data:
-#         return jsonify({"error": "Good name is required"}), 400
-    
-#     good = Goods.query.filter_by(Name=data['good_name'], payment_history_username=data['customer_username']).first()
-    
-#     if good is None:
-#         return jsonify({"error": "Good or customer not found"}), 404
-    
-#     payment_history = good.payment_history
-#     # Assuming you want to return some details about the payment history
-#     # Modify this part based on what details you need to return
-#     response = {
-#         "customer_username": payment_history.customer_username,
-#         # Include other relevant payment history details here
-#     }
-
-#     return jsonify(response)
-    
-     
-    
-
-
+#Make a buyment from a customer to a good, and add it to the payment history:
 def make_sale():
     data = request.get_json()
     if 'Name' not in data or 'Username' not in data:
@@ -146,6 +84,10 @@ def make_sale():
 
     return jsonify({"message": "Sale completed successfully"}), 200
 
+
+
+
+#Display the payment history of a user:
 def get_payment_history():
     data = request.get_json()
     if 'Username' not in data:
