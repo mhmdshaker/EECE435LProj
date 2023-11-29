@@ -10,8 +10,6 @@ app = Flask(__name__)
 # Configure your MySQL database connection here
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:new_password@localhost:3306/mydb'
 db.init_app(app)
-# db = SQLAlchemy(app)
-
 
 #test
 @app.route('/khalil', methods=['GET'])
