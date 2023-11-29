@@ -5,6 +5,8 @@ from models import Customer, db, Payment_History
 from decimal import Decimal
 
 
+
+
 #add customer to DB:
 def create_customer():
     data = request.get_json()
@@ -35,6 +37,8 @@ def create_customer():
         return jsonify({"error": str(e)}), 400
 
 
+
+
 #delete a customer from the database:
 def delete_customer():
     data = request.get_json()
@@ -50,6 +54,9 @@ def delete_customer():
     db.session.delete(to_be_deleted)
     db.session.commit()
     return jsonify({"message": "Customer deleted successfully"}), 200
+
+
+
 
 #update customer info:
 def update_customer_info():
@@ -87,6 +94,8 @@ def update_customer_info():
     return jsonify({"message": "Customer information updated successfully"}), 200
 
 
+
+
 # Get all customers from the database
 def get_all_customers():
     try:
@@ -112,6 +121,9 @@ def get_all_customers():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+
 # Get a customer by username
 def get_customer_by_username():
     data = request.get_json()
@@ -121,11 +133,9 @@ def get_customer_by_username():
         return jsonify({"error": "Username is required in the request"}), 400
 
     customer = Customer.query.filter_by(Username=data['Username']).first()
-
     # if not found
     if customer is None:
         return jsonify({"error": "Customer not found"}), 404
-
 
     try:
         customer_data = {
@@ -145,6 +155,9 @@ def get_customer_by_username():
         return jsonify({"error": str(e)}), 500
 
 
+
+
+#add money to the wallet:
 def charge_wallet():
     data = request.get_json()
 
@@ -165,6 +178,10 @@ def charge_wallet():
     db.session.commit()
     return jsonify({"message": "Customer wallet charged successfully"}), 200
 
+
+
+
+#deduct money from the wallet
 def deduct_money():
     data = request.get_json()
 
