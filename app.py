@@ -73,3 +73,7 @@ def deduct_money():
 @app.route('/make_sale', methods = ['PATCH'])
 def make_sale():
     return sales.make_sale()
+
+@app.route('/get_payment_history', methods = ['GET'])
+def get_payment_history():
+    return sales.get_payment_history()

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-from models import Customer, db
+from models import Customer, db, Payment_History
 from decimal import Decimal
 
 
@@ -24,6 +24,9 @@ def create_customer():
         )
 
         db.session.add(new_customer)
+        
+        new_payment_history = Payment_History(customer_username=data['Username'])
+        db.session.add(new_payment_history)
         db.session.commit()
 
         return jsonify({"message": "Customer created successfully"}), 201
@@ -184,3 +187,4 @@ def deduct_money():
     
     db.session.commit()
     return jsonify({"message": "Deducted from customer wallet successfully"}), 200
+
