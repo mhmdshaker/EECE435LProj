@@ -15,6 +15,7 @@ class Customer(db.Model):
     MaritalStatus = db.Column(db.Enum('Single', 'Married', 'Divorced', 'Widowed'))
     wallet = db.Column(db.Numeric(10, 2), nullable=False, default=0.00)
 
+#Define the Goods model
 class Goods(db.Model):
     __tablename__ = 'goods'
     Name = db.Column(db.String(255), primary_key=True, nullable=False)
@@ -24,6 +25,7 @@ class Goods(db.Model):
     Count_of_available_items = db.Column(db.Integer, nullable=False)
     payment_history_username = db.Column(db.String(225), db.ForeignKey('payment_history.customer_username'), nullable=False)
 
+#Define the Payment_History model
 class Payment_History(db.Model):
     __tablename__ = 'payment_history'
     customer_username = db.Column(db.String(225), primary_key=True, nullable=False)
