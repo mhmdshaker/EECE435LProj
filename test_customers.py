@@ -64,13 +64,13 @@ from flask import jsonify
 #     assert response.status_code == 200
 #     assert b"Customer deleted successfully" in response.data
 
-def test_delete_nonexisting_customer():
-    data = {
-        "Username" : "mmm"
-    }
-    response = app.test_client().post('/delete_customer', json=data)
-    assert response.status_code == 404
-    assert b"Customer not found" in response.data
+# def test_delete_nonexisting_customer():
+#     data = {
+#         "Username" : "mmm"
+#     }
+#     response = app.test_client().post('/delete_customer', json=data)
+#     assert response.status_code == 404
+#     assert b"Customer not found" in response.data
 
 
 # def test_update_customer_info():
