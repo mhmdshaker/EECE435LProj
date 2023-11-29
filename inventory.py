@@ -20,7 +20,7 @@ def add_good():
         
         db.session.add(new_good)
         db.session.commit()
-        return jsonify({"message": "Good added successfully"})
+        return jsonify({"message": "Good added successfully"}), 201
     except Exception as e:
         if 'duplicate entry' in str(e).lower():
             return jsonify({"error": "The item already exists, please update its fields instead"}), 400
