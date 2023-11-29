@@ -1,3 +1,11 @@
+"""
+inventory.py
+------------
+
+This module contains functions related to inventory management.
+
+"""
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
@@ -8,6 +16,15 @@ from models import Goods, db
 
 #Adding good to DB, as in creating a new good but not adding quantity:
 def add_good():
+    """
+    Add a new good to the database.
+
+    Creates a new entry for a good in the database based on the provided data.
+    Returns a JSON response indicating the success or failure of the operation.
+
+    Returns:
+        Response: A JSON response indicating the success or failure of adding the good.
+    """
     data = request.get_json()
     try:
         new_good = Goods(
@@ -31,6 +48,15 @@ def add_good():
     
 #Deducing goods: removing an item from stock :
 def remove_stock():
+    """
+    Remove an item from stock.
+
+    Deducts a specified amount from the available quantity of a specific good.
+    Returns a JSON response indicating the success or failure of the operation.
+
+    Returns:
+        Response: A JSON response indicating the success or failure of removing the item from stock.
+    """
     data = request.get_json()
     # Check if 'Name' is provided in the JSON data
     if 'Name' not in data:
@@ -56,6 +82,15 @@ def remove_stock():
         
 #Updating fields of an item, including increasing amopunts of goods:
 def update_good_info():
+    """
+    Update information for a specific item (good) in the inventory.
+
+    Modifies the information of a specific good based on the provided data.
+    Returns a JSON response indicating the success or failure of the operation.
+
+    Returns:
+        Response: A JSON response indicating the success or failure of updating the item information.
+    """
     data = request.get_json()
 
     # Check if 'Name' is provided in the JSON data
