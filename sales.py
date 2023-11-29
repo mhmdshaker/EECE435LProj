@@ -1,3 +1,11 @@
+"""
+sales.py
+--------
+
+This module contains functions related to the sales and payment history operations.
+
+"""
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
@@ -8,6 +16,15 @@ from models import Customer, Goods, db, Payment_History
 
 #Display available goods:
 def display_available_goods():
+    """
+    Display the available goods.
+
+    Retrieves all available goods from the database and returns a JSON
+    response containing the details of each available good.
+
+    Returns:
+        Response: A JSON response containing the details of available goods.
+    """
     goods = Goods.query.all()
     # Convert the list of customers to a list of dictionaries to be used for the json file
     goods_list = [
@@ -28,6 +45,15 @@ def display_available_goods():
 
 #Get goods details: This API should return full information related to a specific good:
 def good_details():
+    """
+    Get details of a specific good.
+
+    Retrieves the details of a specific good based on the provided 'Name'.
+    Returns a JSON response containing the details of the requested good.
+
+    Returns:
+        Response: A JSON response containing the details of the requested good.
+    """
     data = request.get_json()
 
     # Check if 'good' is provided in the JSON data
@@ -58,6 +84,16 @@ def good_details():
 
 #Make a buyment from a customer to a good, and add it to the payment history:
 def make_sale():
+    """
+    Make a sale transaction.
+
+    Processes a sale transaction by deducting the purchased item's price from
+    the customer's wallet, reducing the available quantity of the item, and
+    adding the transaction to the payment history.
+
+    Returns:
+        Response: A JSON response indicating the success or failure of the sale.
+    """
     data = request.get_json()
     if 'Name' not in data or 'Username' not in data:
         return jsonify({"error": "Name of good and Username are required"}), 400
@@ -89,6 +125,15 @@ def make_sale():
 
 #Display the payment history of a user:
 def get_payment_history():
+    """
+    Display the payment history of a user.
+
+    Retrieves the payment history of a user based on the provided 'Username'.
+    Returns a JSON response containing the names of the goods bought by the user.
+
+    Returns:
+        Response: A JSON response containing the names of goods bought by the user.
+    """
     data = request.get_json()
     if 'Username' not in data:
         return jsonify({"error": "Username is required"}), 400
