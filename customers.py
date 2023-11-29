@@ -1,3 +1,11 @@
+"""
+customers.py
+-------------
+
+This module contains functions related to customer operations.
+
+"""
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
@@ -9,6 +17,13 @@ from decimal import Decimal
 
 #add customer to DB:
 def create_customer():
+    """
+    Add a new customer to the database.
+
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
     try:
         if "wallet" not in data:
@@ -41,6 +56,13 @@ def create_customer():
 
 #delete a customer from the database:
 def delete_customer():
+    """
+    Deletes customer from database.
+    Input: Username
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
     # Check if 'Username' is provided in the JSON data
     if 'Username' not in data:
@@ -60,6 +82,13 @@ def delete_customer():
 
 #update customer info:
 def update_customer_info():
+    """
+    Updates customer info in database.
+    Input: Username
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
 
     # Check if 'Username' is provided in the JSON data
@@ -98,6 +127,11 @@ def update_customer_info():
 
 # Get all customers from the database
 def get_all_customers():
+    """
+    Returns:
+        jsonify: JSON with all customers in database indicating success or error.
+
+    """
     try:
         customers = Customer.query.all()
 
@@ -126,6 +160,12 @@ def get_all_customers():
 
 # Get a customer by username
 def get_customer_by_username():
+    """
+    Input: Username
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
 
     # Check if 'Username' is provided in the JSON data
@@ -159,6 +199,13 @@ def get_customer_by_username():
 
 #add money to the wallet:
 def charge_wallet():
+    """
+    Charges customer's wallet in database.
+    Input: Username
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
 
     if 'Username' not in data:
@@ -170,6 +217,8 @@ def charge_wallet():
         return jsonify({"error": "Amount to charge should be non-negative"}), 400
 
     customer = Customer.query.filter_by(Username=data['Username']).first()
+    if customer is None:
+        return jsonify({"error": "Customer not found"}), 404
     if type(data['Amount_to_charge'])!=int:
         if type(data['Amount_to_charge'])!=float:
             return jsonify({"error": "Invalid type for amount to charge! You shopuld input a decimal or an integer"}), 400
@@ -183,6 +232,13 @@ def charge_wallet():
 
 #deduct money from the wallet
 def deduct_money():
+    """
+    Deducts customer's money in database.
+    Input: Username
+    Returns:
+        jsonify: JSON response indicating success or error.
+
+    """
     data = request.get_json()
 
     if 'Username' not in data:
@@ -194,6 +250,8 @@ def deduct_money():
         return jsonify({"error": "Amount to deduct should be non-negative"}), 400
     
     customer = Customer.query.filter_by(Username=data['Username']).first()
+    if customer is None:
+        return jsonify({"error": "Customer not found"}), 404
     if type(data['Amount_to_deduct'])!=int:
         if type(data['Amount_to_deduct'])!=float:
             return jsonify({"error": "Invalid type for amount to deduct! You shopuld input a decimal or an integer"}), 400
