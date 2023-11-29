@@ -104,16 +104,26 @@ def test_get_nonexisting_customer_by_username():
 
 def test_charge_wallet():
     data = {
-        "Username" : "khb"
+        "Username" : "khb",
+        "Amount_to_charge" : 10
     }
     response = app.test_client().patch('/charge_wallet', json=data)
     assert response.status_code == 200
     assert b"Customer wallet charged successfully" in response.data
 
+def test_negative_charge_wallet():
+    data = {
+        "Username" : "khb",
+        "Amount_to_charge" : -10
+    }
+    response = app.test_client().patch('/charge_wallet', json=data)
+    assert response.status_code == 400
+    assert b"Amount to charge should be non-negative" in response.data
 
 def test_nonexisting_customer_charge_wallet():
     data = {
-        "Username" : "mmm"
+        "Username" : "mmm",
+        "Amount_to_charge" : 10
     }
     response = app.test_client().patch('/charge_wallet', json=data)
     assert response.status_code == 404
@@ -121,7 +131,8 @@ def test_nonexisting_customer_charge_wallet():
 
 def test_deduct_money():
     data = {
-        "Username" : "khb"
+        "Username" : "khb",
+        "Amount_to_deduct" : 10
     }
     response = app.test_client().patch('/deduct_money', json=data)
     assert response.status_code == 200
@@ -129,8 +140,18 @@ def test_deduct_money():
 
 def test_deduct_nonexisting_customer_money():
     data = {
-        "Username" : "mmm"
+        "Username" : "mmm",
+        "Amount_to_deduct" : 10
     }
     response = app.test_client().patch('/deduct_money', json=data)
     assert response.status_code == 404
     assert b"Customer not found" in response.data
+
+def test_negative_charge_wallet():
+    data = {
+        "Username" : "khb",
+        "Amount_to_deduct" : -10
+    }
+    response = app.test_client().patch('/deduct_money', json=data)
+    assert response.status_code == 400
+    assert b"Amount to deduct should be non-negative" in response.data
