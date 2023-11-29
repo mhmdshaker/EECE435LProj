@@ -39,6 +39,10 @@ def remove_stock():
         return jsonify({"error": "Amount to be deducted is required as an input"}), 400
     
     to_be_updated = Goods.query.filter_by(Name=data['Name']).first()
+
+    if to_be_updated is None:
+        return jsonify({"error": "Good not found"}), 404
+
     if (to_be_updated.Count_of_available_items - data['Amount_to_be_removed'] < 0):
         return jsonify({"error": "The inventory has a number of items of this good that is less than what you are demanding"}), 400
         
