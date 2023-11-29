@@ -1,3 +1,11 @@
+"""
+app.py
+-------
+
+This module contains the main Flask application.
+
+"""
+
 from flask import Flask
 from models import db, Customer
 import customers

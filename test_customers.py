@@ -1,10 +1,24 @@
+"""
+test_customers.py
+-------------------
+
+This module contains test functions for the customer-related operations.
+
+"""
+
 import json
 import pytest
 from app import app
 from flask import jsonify
 
 def test_create_customer():
+    """
+    Test the creation of a new customer.
 
+    Creates a new customer using a sample data and checks if the response
+    indicates successful creation.
+
+    """
     data = {
         "Fullname": "Khalil Bitar",
         "Username": "khb",
@@ -34,6 +48,12 @@ def test_create_customer():
 #     }
 #     response = app.test_client().post('/create_customer', json=data)
 #     assert response.status_code ==
+
+# Additional test functions for create_existing_customer, delete_customer,
+# delete_nonexisting_customer, update_customer_info, update_nonexisting_customer_info,
+# get_customer_by_username, get_nonexisting_customer_by_username, charge_wallet,
+# negative_charge_wallet, nonexisting_customer_charge_wallet, deduct_money,
+# deduct_nonexisting_customer_money, negative_deduct_wallet.
 
 def test_delete_customer():
 
